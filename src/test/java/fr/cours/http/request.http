@@ -1,0 +1,127 @@
+@baseUrl = http://localhost:8080/app-jee8/resources/sample
+@amangousseUrl = http://localhost:8080/app-jee8/resources/amangousse
+###
+GET {{baseUrl}}/titans
+###
+POST {{baseUrl}}/test
+Content-Type: application/json
+
+{
+    "name": "test",
+    "age": "0"
+}
+###
+GET {{baseUrl}}/amangousse
+###
+POST {{baseUrl}}/amangousse
+Content-Type: application/json
+
+{
+    "name": "test",
+    "job": "test"
+}
+###
+DELETE  {{baseUrl}}/amangousse/test
+
+
+
+###
+GET {{amangousseUrl}}
+###
+POST {{amangousseUrl}}
+Content-Type: application/json
+
+{
+    "name": "test",
+    "job": "test"
+}
+###
+DELETE  {{amangousseUrl}}/test
+###
+PUT {{amangousseUrl}}
+Content-Type: application/json
+
+{
+    "name": "test",
+    "job": "coco"
+}
+
+
+
+###
+POST {{userUrl}}/create
+Content-Type: application/json
+
+{
+  "email": "test@e.ee",
+  "name": "test",
+  "password": "111"
+}
+###
+PUT {{userUrl}}/updatePwd
+Content-Type: application/json
+
+{
+  "email": "test@e.ee",
+  "password": "222"
+}
+###
+POST {{userUrl}}/login
+Content-Type: application/json
+
+{
+  "email": "test@e.ee",
+  "password": "111"
+}
+###
+PUT {{userUrl}}/updatePwd
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGUuZWUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBwLWplZTgvcmVzb3VyY2VzL3VzZXIvbG9naW4iLCJpYXQiOjE2NTM1OTkyOTcsImp0aSI6IjEiLCJyb2xlIjoidXNlciIsImV4cCI6MTY1MzU5OTQxN30.4adLoEkdfMwpubVp4HK6uwGsaO47sQ4CidLMvZ8dJBA
+Content-Type: application/json
+
+{
+  "email": "test@e.ee",
+  "password": "222"
+}
+### sans email
+PUT {{userUrl}}/updatePwd
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGUuZWUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBwLWplZTgvcmVzb3VyY2VzL3VzZXIvbG9naW4iLCJpYXQiOjE2NTM1OTk0ODMsImp0aSI6IjEiLCJyb2xlIjoidXNlciIsImV4cCI6MTY1MzU5OTYwM30.1dD8W-Dnnqdi-bYUJKsKKaEmw6P23SqYuREsiMk-I5o
+Content-Type: application/json
+
+{
+  "password": "222"
+}
+###
+GET {{userUrl}}/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGUuZWUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBwLWplZTgvcmVzb3VyY2VzL3VzZXIvbG9naW4iLCJpYXQiOjE2NTM2MDA1MzQsImp0aSI6IjEiLCJyb2xlIjoidXNlciIsImV4cCI6MTY1MzYwMDY1NH0.W1cHz_9gaTxy43xVhbcc_xRPhuL-1uyVvGUg8SRkGVA
+###
+GET {{userUrl}}/login
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGUuZWUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBwLWplZTgvcmVzb3VyY2VzL3VzZXIvbG9naW4iLCJpYXQiOjE2NTM3NjgxMTEsImp0aSI6IjEiLCJyb2xlIjoidXNlciIsImV4cCI6MTY1Mzc2ODIzMX0.6CPg2Uyh2H6zFWwjH7IfejRVEF3wGgZbGMH-r0IQdtU
+
+###
+GET {{AFUrl}}/filter/zonegeo
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGUuZWUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBwLWplZTgvcmVzb3VyY2VzL3VzZXIvbG9naW4iLCJpYXQiOjE2NTM3NzA4NzgsImp0aSI6IjEiLCJyb2xlIjoidXNlciIsImV4cCI6MTY1Mzc3MDk5OH0.TK8GWcfL1MeMcrXkFZrj5I8gbwxyDbVPzDhwHBZCVBs
+
+###
+POST {{AFUrl}}/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGUuZWUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBwLWplZTgvcmVzb3VyY2VzL3VzZXIvbG9naW4iLCJpYXQiOjE2NTM3NzIyMjAsImp0aSI6IjEiLCJyb2xlIjoidXNlciIsImV4cCI6MTY1Mzc3MjM0MH0.30zRe4rL9wWAH854_uBgIDm-4OjGi1DsdJ9PYCeIhJ8
+Content-Type: application/json
+
+{
+  "nom": "test",
+  "pays": "test",
+  "zonegeo": "test"
+}
+
+###
+PUT {{AFUrl}}/update
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGUuZWUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBwLWplZTgvcmVzb3VyY2VzL3VzZXIvbG9naW4iLCJpYXQiOjE2NTM3NzIyMjAsImp0aSI6IjEiLCJyb2xlIjoidXNlciIsImV4cCI6MTY1Mzc3MjM0MH0.30zRe4rL9wWAH854_uBgIDm-4OjGi1DsdJ9PYCeIhJ8
+Content-Type: application/json
+
+{
+  "nom": "test",
+  "zonegeo": "222"
+}
+
+###
+DELETE  {{AFUrl}}/delete/11
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGUuZWUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBwLWplZTgvcmVzb3VyY2VzL3VzZXIvbG9naW4iLCJpYXQiOjE2NTM3NzIyMjAsImp0aSI6IjEiLCJyb2xlIjoidXNlciIsImV4cCI6MTY1Mzc3MjM0MH0.30zRe4rL9wWAH854_uBgIDm-4OjGi1DsdJ9PYCeIhJ8

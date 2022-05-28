@@ -1,0 +1,1 @@
+LOAD DATA LOCAL INFILE '/Users/zhangjunxi/Documents/EFFICOM/Java/app-jee8/src/main/resources/META-INF/data.csv' INTO TABLE AllianceFrench CHARACTER SET latin1 FIELDS TERMINATED BY ';' ENCLOSED BY '"' LINES TERMINATED BY '\n'IGNORE 1 ROWS (nom, zonegeo, pays, region_comte, ville, adresse, code_tel, tel_1, tel_2, tel_3, fax_1, fax_2, email_1 ,email_2, email_3, web_1, web_2);
