@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class JWT implements Serializable {
 
     private static final long serialVersionUID = 5L;
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String token;
 
     @OneToOne
