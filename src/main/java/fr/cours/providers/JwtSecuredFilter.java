@@ -21,12 +21,13 @@ import java.security.Key;
 import java.security.Principal;
 import java.time.Instant;
 import java.util.Date;
+import java.util.logging.Logger;
 
 @Provider
 @JwtSecured
 @Priority(Priorities.AUTHENTICATION)
 public class JwtSecuredFilter implements ContainerRequestFilter {
-
+    private final static Logger logger = Logger.getLogger(JwtSecuredFilter.class.getName());
     @Inject
     private JWTBean jwtBean;
 
@@ -40,13 +41,13 @@ public class JwtSecuredFilter implements ContainerRequestFilter {
         }
         // Extract the token from the HTTP Authorization header
         String token = authorizationHeader.substring("Bearer".length()).trim();
-
+        logger.info(token);
         try {
 
             // Validate the token
             Key key = Helper.getJwtKey();
             Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-
+            logger.info(claims.getBody().getSubject());
             final SecurityContext currentSecurityContext = requestContext.getSecurityContext();
             requestContext.setSecurityContext(new SecurityContext() {
 
@@ -64,6 +65,7 @@ public class JwtSecuredFilter implements ContainerRequestFilter {
                 @Override
                 public boolean isSecure() {
                     try {
+                        logger.info(jwtBean.getCurrentUserToken(claims.getBody().getId()).getToken());
                         return jwtBean.getCurrentUserToken(claims.getBody().getId()).getToken().equals(token) && claims.getBody().getExpiration().compareTo(Date.from(Instant.now())) > 0;
                     } catch (Exception e){
                         return false;
