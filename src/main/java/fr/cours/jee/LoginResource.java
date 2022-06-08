@@ -135,7 +135,7 @@ public class LoginResource {
     }
 
     private boolean unauthenticatedJwt() {
-        return !securityContext.isSecure() && !securityContext.isUserInRole("user");
+        return !securityContext.isSecure() && !securityContext.isUserInRole("user") && jwtBean.getCurrentUserToken(userBean.getCurrentUserByEmail(securityContext.getUserPrincipal().getName()).getId().toString()) == null;
     }
 
     private Response unauthenticatedResponse() {
