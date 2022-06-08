@@ -15,9 +15,11 @@ import javax.ws.rs.core.*;
 import java.security.Key;
 import java.time.Instant;
 import java.util.Date;
+import java.util.logging.Logger;
 
 @Path("user")
 public class LoginResource {
+    private final static Logger logger = Logger.getLogger(LoginResource.class.getName());
     @Inject
     private UserBean userBean;
 
@@ -135,6 +137,9 @@ public class LoginResource {
     }
 
     private boolean unauthenticatedJwt() {
+        logger.info("isSecure : " + securityContext.isSecure());
+        logger.info("isUserInRole : " + securityContext.isUserInRole("user"));
+        logger.info("token : " + jwtBean.getCurrentUserToken(userBean.getCurrentUserByEmail(securityContext.getUserPrincipal().getName()).getId().toString()));
         return !(securityContext.isSecure() && securityContext.isUserInRole("user")) && (jwtBean.getCurrentUserToken(userBean.getCurrentUserByEmail(securityContext.getUserPrincipal().getName()).getId().toString()) == null);
     }
 

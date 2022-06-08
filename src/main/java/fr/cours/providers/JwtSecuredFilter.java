@@ -47,18 +47,18 @@ public class JwtSecuredFilter implements ContainerRequestFilter {
             // Validate the token
             Key key = Helper.getJwtKey();
             Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            logger.info(claims.getBody().getSubject());
             final SecurityContext currentSecurityContext = requestContext.getSecurityContext();
             requestContext.setSecurityContext(new SecurityContext() {
 
                 @Override
                 public Principal getUserPrincipal() {
-
+                    logger.info(claims.getBody().getSubject());
                     return () -> claims.getBody().getSubject();
                 }
 
                 @Override
                 public boolean isUserInRole(String role) {
+                    logger.info(claims.getBody().get("role", String.class));
                     return role.equals(claims.getBody().get("role", String.class));
                 }
 
@@ -66,6 +66,8 @@ public class JwtSecuredFilter implements ContainerRequestFilter {
                 public boolean isSecure() {
                     try {
                         logger.info(jwtBean.getCurrentUserToken(claims.getBody().getId()).getToken());
+                        logger.info(claims.getBody().getExpiration().toString());
+                        logger.info(Date.from(Instant.now()).toString());
                         return jwtBean.getCurrentUserToken(claims.getBody().getId()).getToken().equals(token) && claims.getBody().getExpiration().compareTo(Date.from(Instant.now())) > 0;
                     } catch (Exception e){
                         return false;
