@@ -2,6 +2,8 @@ package fr.cours.jee;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.cours.bean.AllianceFrenchBean;
+import fr.cours.bean.JWTBean;
+import fr.cours.bean.UserBean;
 import fr.cours.conf.JwtSecured;
 import fr.cours.ressource.AllianceFrench;
 import org.jetbrains.annotations.NotNull;
@@ -18,6 +20,11 @@ import java.util.List;
 public class AllianceFrenchResource {
     @Inject
     private AllianceFrenchBean allianceFrenchBean;
+
+    @Inject
+    private JWTBean jwtBean;
+    @Inject
+    private UserBean userBean;
 
     @Context
     private UriInfo uriInfo;
@@ -107,7 +114,7 @@ public class AllianceFrenchResource {
     }
 
     private boolean unauthenticatedJwt() {
-        return !securityContext.isSecure() && !securityContext.isUserInRole("user");
+        return !(securityContext.isSecure() && securityContext.isUserInRole("user")) && (jwtBean.getCurrentUserToken(userBean.getCurrentUserByEmail(securityContext.getUserPrincipal().getName()).getId().toString()) == null);
     }
 
     private Response unauthenticatedResponse() {
