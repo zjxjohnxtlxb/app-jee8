@@ -23,7 +23,7 @@ public class User implements Serializable {
     @NotNull
     private String passwordHash;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     private Long id;
 
     public User() {
