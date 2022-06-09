@@ -41,11 +41,11 @@ public class UserDao {
     }
 
     public boolean addUser(User user) {
-        if (this.getCurrentUserByEmail(user.getEmail()) != null) {
-            return false;
-        }
         try {
             userTransaction.begin();
+            if (this.getCurrentUserByEmail(user.getEmail()) != null) {
+                return false;
+            }
             entityManager.persist(entityManager.contains(user) ? user : entityManager.merge(user));
             userTransaction.commit();
             return true;
