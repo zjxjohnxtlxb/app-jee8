@@ -32,7 +32,7 @@ public class JWTDao {
 
 
     public boolean addToken(JWT jwt) {
-        if (this.getCurrentUserToken(jwt.getUser().getId().toString()) != null) {
+        if (this.getCurrentUserToken(jwt.getUserMe().getId().toString()) != null) {
             return false;
         }
         try {
@@ -63,7 +63,7 @@ public class JWTDao {
     }
 
     public boolean updateToken(JWT jwt) {
-        var checkToken = this.getCurrentUserToken(jwt.getUser().getId().toString());
+        var checkToken = this.getCurrentUserToken(jwt.getUserMe().getId().toString());
         if (checkToken == null) {
             return false;
         }

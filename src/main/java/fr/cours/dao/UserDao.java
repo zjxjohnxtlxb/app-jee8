@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
-import javax.xml.registry.infomodel.User;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,9 +43,9 @@ public class UserDao {
     public boolean addUser(UserMe userMe) {
         try {
             userTransaction.begin();
-//            if (this.getCurrentUserByEmail(userMe.getEmail()) != null) {
-//                return false;
-//            }
+            if (this.getCurrentUserByEmail(userMe.getEmail()) != null) {
+                return false;
+            }
             entityManager.persist(userMe);
             userTransaction.commit();
             logger.info("success");

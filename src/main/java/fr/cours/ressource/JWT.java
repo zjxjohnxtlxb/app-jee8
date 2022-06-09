@@ -23,7 +23,7 @@ public class JWT implements Serializable {
         this.token = token;
     }
 
-    public UserMe getUser() {
+    public UserMe getUserMe() {
         return userMe;
     }
 
