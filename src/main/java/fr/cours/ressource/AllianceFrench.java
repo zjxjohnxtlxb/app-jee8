@@ -48,7 +48,8 @@ public class AllianceFrench implements Serializable {
     private String web_2;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(generator="my_seq", strategy=GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "my_seq", initialValue = 1000)
     private Long id;
 
     public AllianceFrench() {
