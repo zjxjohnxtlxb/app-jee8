@@ -1,7 +1,7 @@
 package fr.cours.dao;
 
 import fr.cours.ressource.JWT;
-import fr.cours.ressource.User;
+import fr.cours.ressource.UserMe;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -46,8 +46,8 @@ public class JWTDao {
         }
     }
 
-    public boolean deleteToken(User user) {
-        var jwt = this.getCurrentUserToken(user.getId().toString());
+    public boolean deleteToken(UserMe userMe) {
+        var jwt = this.getCurrentUserToken(userMe.getId().toString());
         if (jwt == null) {
             return false;
         }

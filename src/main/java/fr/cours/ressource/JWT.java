@@ -12,23 +12,23 @@ public class JWT implements Serializable {
 
     @OneToOne
     @Id
-    private User user;
+    private UserMe userMe;
 
 
     public JWT() {
     }
 
-    public JWT(User user, String token) {
-        this.user = user;
+    public JWT(UserMe userMe, String token) {
+        this.userMe = userMe;
         this.token = token;
     }
 
-    public User getUser() {
-        return user;
+    public UserMe getUser() {
+        return userMe;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserMe userMe) {
+        this.userMe = userMe;
     }
 
     public String getToken() {

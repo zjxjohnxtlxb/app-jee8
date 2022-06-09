@@ -1,6 +1,6 @@
 package fr.cours.dao;
 
-import fr.cours.ressource.User;
+import fr.cours.ressource.UserMe;
 import fr.cours.utils.Helper;
 
 import javax.annotation.Resource;
@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
+import javax.xml.registry.infomodel.User;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,18 +21,18 @@ public class UserDao {
     @Resource
     UserTransaction userTransaction;
 
-    public User getCurrentUserByID(String id) {
+    public UserMe getCurrentUserByID(String id) {
         try {
-            return entityManager.find(User.class, Long.parseLong(id));
+            return entityManager.find(UserMe.class, Long.parseLong(id));
         } catch (NoResultException nre) {
             return null;
         }
     }
 
-    public User getCurrentUserByEmail(String mail) {
+    public UserMe getCurrentUserByEmail(String mail) {
         try {
-            return (User) entityManager.createQuery(
-                            "SELECT u FROM User u WHERE u.email = :cEmail")
+            return (UserMe) entityManager.createQuery(
+                            "SELECT u FROM UserMe u WHERE u.email = :cEmail")
                     .setParameter("cEmail", mail)
                     .getSingleResult();
         } catch (Exception e) {
@@ -40,13 +41,13 @@ public class UserDao {
         }
     }
 
-    public boolean addUser(User user) {
+    public boolean addUser(UserMe userMe) {
         try {
             userTransaction.begin();
-//            if (this.getCurrentUserByEmail(user.getEmail()) != null) {
+//            if (this.getCurrentUserByEmail(userMe.getEmail()) != null) {
 //                return false;
 //            }
-            entityManager.persist(user);
+            entityManager.persist(userMe);
             userTransaction.commit();
             logger.info("success");
             return true;
@@ -74,14 +75,14 @@ public class UserDao {
         }
     }
 
-    public boolean updatePasswordUser(User user) {
-        var checkUser = this.getCurrentUserByEmail(user.getEmail());
+    public boolean updatePasswordUser(UserMe userMe) {
+        var checkUser = this.getCurrentUserByEmail(userMe.getEmail());
         if (checkUser == null) {
             return false;
         }
         try {
             userTransaction.begin();
-            checkUser.setPassword(user.getPassword());
+            checkUser.setPassword(userMe.getPassword());
             entityManager.merge(checkUser);
             userTransaction.commit();
             return true;
@@ -91,9 +92,9 @@ public class UserDao {
         }
     }
 
-    public boolean checkPasswordUser(User user) {
-        var checkUser = this.getCurrentUserByEmail(user.getEmail());
+    public boolean checkPasswordUser(UserMe userMe) {
+        var checkUser = this.getCurrentUserByEmail(userMe.getEmail());
         return checkUser != null &&
-                checkUser.getPasswordHash().equals(Helper.hashUtil(user.getPassword()));
+                checkUser.getPasswordHash().equals(Helper.hashUtil(userMe.getPassword()));
     }
 }

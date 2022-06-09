@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-public class User implements Serializable {
+public class UserMe implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Column
@@ -23,13 +23,13 @@ public class User implements Serializable {
     @NotNull
     private String passwordHash;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    public User() {
+    public UserMeMe() {
     }
 
-    public User(String name, String email, String password) {
+    public UserMeMe(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.setPassword(password);

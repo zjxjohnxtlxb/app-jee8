@@ -4,7 +4,7 @@ import fr.cours.bean.JWTBean;
 import fr.cours.bean.UserBean;
 import fr.cours.conf.JwtSecured;
 import fr.cours.ressource.JWT;
-import fr.cours.ressource.User;
+import fr.cours.ressource.UserMe;
 import fr.cours.utils.Helper;
 import io.jsonwebtoken.Jwts;
 import org.jetbrains.annotations.NotNull;
@@ -36,13 +36,13 @@ public class LoginResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("create")
-    public Response addUser(@NotNull User user) {
-        if (user.getPassword() == null) {
+    public Response addUser(@NotNull UserMe userMe) {
+        if (userMe.getPassword() == null) {
             return Response.ok("password should not be empty").build();
         }
         try {
-            if (userBean.addUser(user)) {
-                return Response.ok(userBean.getCurrentUserByEmail(user.getEmail())).build();
+            if (userBean.addUser(userMe)) {
+                return Response.ok(userBean.getCurrentUserByEmail(userMe.getEmail())).build();
             } else {
                 return Response.ok("The email address is not available").build();
             }
@@ -58,16 +58,16 @@ public class LoginResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("login")
-    public Response loginUser(User user) {
-        if (userBean.checkPasswordUser(user)) {
-            user = userBean.getCurrentUserByEmail(user.getEmail());
-            JWT token = new JWT(user, tokenBuilder(user));
-            if (jwtBean.getCurrentUserToken(user.getId().toString()) != null) {
+    public Response loginUser(UserMe userMe) {
+        if (userBean.checkPasswordUser(userMe)) {
+            userMe = userBean.getCurrentUserByEmail(userMe.getEmail());
+            JWT token = new JWT(userMe, tokenBuilder(userMe));
+            if (jwtBean.getCurrentUserToken(userMe.getId().toString()) != null) {
                 jwtBean.updateToken(token);
             } else {
                 jwtBean.addToken(token);
             }
-            return Response.ok(user + "\nlogin success !").header(HttpHeaders.AUTHORIZATION, "Bearer " + token.getToken()).build();
+            return Response.ok(userMe + "\nlogin success !").header(HttpHeaders.AUTHORIZATION, "Bearer " + token.getToken()).build();
         } else {
             return Response.ok("password or email isn't correct").build();
         }
@@ -78,15 +78,15 @@ public class LoginResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @Path("updatePwd")
-    public Response updatePasswordUser(@NotNull User user) {
+    public Response updatePasswordUser(@NotNull UserMe userMe) {
         if (unauthenticatedJwt()) {
             return unauthenticatedResponse();
         }
-        if (user.getEmail() == null) {
-            user.setEmail(securityContext.getUserPrincipal().getName());
+        if (userMe.getEmail() == null) {
+            userMe.setEmail(securityContext.getUserPrincipal().getName());
         }
-        if (userBean.updatePasswordUser(user)) {
-            var updateUser = userBean.getCurrentUserByEmail(user.getEmail());
+        if (userBean.updatePasswordUser(userMe)) {
+            var updateUser = userBean.getCurrentUserByEmail(userMe.getEmail());
             return Response.ok("updated ! " + updateUser).build();
         } else {
             return Response.ok("no exist user !").build();
@@ -126,13 +126,13 @@ public class LoginResource {
         }
     }
 
-    private String tokenBuilder(User user) {
+    private String tokenBuilder(UserMe userMe) {
 
         Key key = Helper.getJwtKey();
         return Jwts.builder()
-                .setSubject(user.getEmail()).setIssuer(uriInfo.getAbsolutePath().toString())
+                .setSubject(userMe.getEmail()).setIssuer(uriInfo.getAbsolutePath().toString())
                 .setIssuedAt(Date.from(Instant.now()))
-                .setId(user.getId().toString())
+                .setId(userMe.getId().toString())
                 .claim("role", "user")
                 .setExpiration(Date.from(Instant.now().plusSeconds(120L)))
                 .signWith(key)
