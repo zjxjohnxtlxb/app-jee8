@@ -14,6 +14,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.security.Key;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -47,6 +48,7 @@ public class LoginResource {
             }
         } catch (Exception e) {
             logger.info("create user : " + e.getMessage());
+            logger.warning(Arrays.toString(e.getStackTrace()));
             return Response.ok("Error, please check the information entered").build();
         }
 
