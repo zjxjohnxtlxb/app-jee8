@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserDao {
+    private final static Logger logger = Logger.getLogger(UserDao.class.getName());
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -33,7 +34,8 @@ public class UserDao {
                             "SELECT u FROM User u WHERE u.email = :cEmail")
                     .setParameter("cEmail", mail)
                     .getSingleResult();
-        } catch (NoResultException nre) {
+        } catch (Exception e) {
+            logger.info(e.getMessage());
             return null;
         }
     }
