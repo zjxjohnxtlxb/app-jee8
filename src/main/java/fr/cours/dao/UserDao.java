@@ -46,7 +46,7 @@ public class UserDao {
         }
         try {
             userTransaction.begin();
-            entityManager.persist(user);
+            entityManager.persist(entityManager.contains(user) ? user : entityManager.merge(user));
             userTransaction.commit();
             return true;
         } catch (Exception e) {
