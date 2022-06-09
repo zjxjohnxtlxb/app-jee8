@@ -81,7 +81,6 @@ public class JwtSecuredFilter implements ContainerRequestFilter {
             });
 
         } catch (Exception e) {
-            System.out.println(e);
             requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("please login !").build());
         }
 
