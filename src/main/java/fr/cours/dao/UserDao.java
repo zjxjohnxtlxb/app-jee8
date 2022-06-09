@@ -43,10 +43,9 @@ public class UserDao {
     public boolean addUser(User user) {
         try {
             userTransaction.begin();
-            if (this.getCurrentUserByEmail(user.getEmail()) != null) {
-                return false;
-            }
-            user.setId(1L);
+//            if (this.getCurrentUserByEmail(user.getEmail()) != null) {
+//                return false;
+//            }
             entityManager.persist(user);
             userTransaction.commit();
             logger.info("success");
