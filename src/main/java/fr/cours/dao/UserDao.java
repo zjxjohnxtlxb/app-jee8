@@ -46,7 +46,6 @@ public class UserDao {
 //            if (this.getCurrentUserByEmail(user.getEmail()) != null) {
 //                return false;
 //            }
-            user.setId(1L);
             entityManager.persist(user);
             userTransaction.commit();
             logger.info("success");
