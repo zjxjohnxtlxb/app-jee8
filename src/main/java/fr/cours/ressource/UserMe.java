@@ -26,10 +26,10 @@ public class UserMe implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    public UserMeMe() {
+    public UserMe() {
     }
 
-    public UserMeMe(String name, String email, String password) {
+    public UserMe(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.setPassword(password);
