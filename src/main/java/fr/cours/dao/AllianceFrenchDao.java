@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AllianceFrenchDao {
+    private final static Logger logger = Logger.getLogger(AllianceFrenchDao.class.getName());
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -61,6 +62,7 @@ public class AllianceFrenchDao {
     }
 
     public boolean addAllianceFrench(AllianceFrench allianceFrench) {
+        logger.warning(allianceFrench.getNom());
         if (this.getAllianceFrenchByNom(allianceFrench.getNom()) != null) {
             return false;
         }

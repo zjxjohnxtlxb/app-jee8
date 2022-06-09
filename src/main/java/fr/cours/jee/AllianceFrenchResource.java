@@ -15,9 +15,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Path("allianceFrench")
 public class AllianceFrenchResource {
+    private final static Logger logger = Logger.getLogger(AllianceFrenchResource.class.getName());
     @Inject
     private AllianceFrenchBean allianceFrenchBean;
 
@@ -48,6 +50,7 @@ public class AllianceFrenchResource {
                 return Response.ok("Error, please check the information entered").build();
             }
         } catch (Exception e) {
+            logger.warning("addAllianceFrench :" + e.getMessage());
             return Response.ok("Error, please check the information entered").build();
         }
     }
