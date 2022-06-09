@@ -46,7 +46,7 @@ public class LoginResource {
                 return Response.ok("The email address is not available").build();
             }
         } catch (Exception e) {
-            logger.info("create user" + e.getMessage());
+            logger.info("create user : " + e.getMessage());
             return Response.ok("Error, please check the information entered").build();
         }
 

@@ -35,7 +35,7 @@ public class UserDao {
                     .setParameter("cEmail", mail)
                     .getSingleResult();
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.info("email : " + e.getMessage());
             return null;
         }
     }
@@ -46,10 +46,12 @@ public class UserDao {
             if (this.getCurrentUserByEmail(user.getEmail()) != null) {
                 return false;
             }
-            entityManager.persist(entityManager.contains(user) ? user : entityManager.merge(user));
+            entityManager.persist(user);
             userTransaction.commit();
+            logger.info("success");
             return true;
         } catch (Exception e) {
+            logger.info("false :" + e.getMessage());
             Logger.getGlobal().log(Level.SEVERE, "JPA error" + e.getMessage());
             return false;
         }
