@@ -34,6 +34,28 @@ public class CrewMemberDao {
         }
     }
 
+    public List<CrewMember> getCrewMemberDemo(String name) {
+        try {
+            return entityManager.createNativeQuery(
+                            "SELECT * FROM CrewMember WHERE name = '" + name + "' ")
+                    //.setParameter("cName", name)
+                    .getResultList();
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
+
+    public List<CrewMember> getCrewMemberList(String name) {
+        try {
+            return entityManager.createQuery(
+                            "SELECT c FROM CrewMember c WHERE c.name = :cName")
+                    .setParameter("cName", name)
+                    .getResultList();
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
+
     public boolean addCrewMember(CrewMember crewMember) {
         if (getCrewMemberByName(crewMember.getName()) != null) {
             return false;

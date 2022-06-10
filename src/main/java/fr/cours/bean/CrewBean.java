@@ -30,6 +30,9 @@ public class CrewBean {
         return crewMemberDao.getCrewMemberByName(name);
     }
 
+    public List<CrewMember> getCrewMemberDemo(String name) { return crewMemberDao.getCrewMemberDemo(name);}
+    public List<CrewMember> getCrewMemberList(String name) { return crewMemberDao.getCrewMemberList(name);}
+
     public boolean addMember(CrewMember crewMember) {
         return crewMemberDao.addCrewMember(crewMember);
     }
