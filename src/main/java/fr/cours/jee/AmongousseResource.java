@@ -35,7 +35,7 @@ public class AmongousseResource {
         if (cmlist.size() != 0) {
             return Response.ok(cmlist).build();
         } else {
-            return Response.ok("no exist element !").build();
+            return Response.ok("no exist element !").type(MediaType.TEXT_PLAIN).build();
         }
     }
 
@@ -47,7 +47,7 @@ public class AmongousseResource {
         if (cmlist.size() != 0) {
             return Response.ok(cmlist).build();
         } else {
-            return Response.ok("no exist element !").build();
+            return Response.ok("no exist element !").type(MediaType.TEXT_PLAIN).build();
         }
     }
 
@@ -69,7 +69,7 @@ public class AmongousseResource {
         if (crewBean.deleteMember(name)) {
             return Response.ok(crewBean.getCrewMembers().size()).build();
         } else {
-            return Response.ok("no exist element !").build();
+            return Response.ok("no exist element !").type(MediaType.TEXT_PLAIN).build();
         }
     }
 
@@ -80,7 +80,7 @@ public class AmongousseResource {
         if (crewBean.updateMember(crewMember)) {
             return Response.ok("updated ! " + crewBean.getCrewMembers().size()).build();
         } else {
-            return Response.ok("no exist element !").build();
+            return Response.ok("no exist element !").type(MediaType.TEXT_PLAIN).build();
         }
     }
 

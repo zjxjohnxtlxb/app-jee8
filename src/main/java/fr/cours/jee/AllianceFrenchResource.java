@@ -121,6 +121,6 @@ public class AllianceFrenchResource {
     }
 
     private Response unauthenticatedResponse() {
-        return Response.status(Response.Status.UNAUTHORIZED).entity("unrecognized login information or login expired & Please login !").build();
+        return Response.status(Response.Status.UNAUTHORIZED).type(MediaType.TEXT_PLAIN).entity("unrecognized login information or login expired & Please login !").build();
     }
 }
